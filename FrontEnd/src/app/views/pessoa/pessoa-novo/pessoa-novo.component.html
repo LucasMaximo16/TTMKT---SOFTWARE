@@ -1,0 +1,77 @@
+<div class="container mt-4">
+
+  <div class="col-lg-8 col-md-6 col-sm-12">
+    <form class="form-group">
+      <div class="form-row">
+        <!--Nome Pessoa-->
+        <div class="form-group col-md-6">
+          <label for="inputNomePessoa">Nome da Pessoa</label>
+          <input type="text" class="form-control" id="inputNomePessoa" [(ngModel)]="pessoa.nome"
+            [ngModelOptions]="{standalone:true}" placeholder="Nome da Pessoa" />
+        </div>
+        <!--CPF-->
+        <div class="form-group col-md-3">
+          <label for="inputCPF">Cpf</label>
+          <input type="text" class="form-control" id="inputCPF" [(ngModel)]="pessoa.cpf"
+            [ngModelOptions]="{standalone:true}" placeholder="Cpf da Pessoa" />
+        </div>
+        <!--Data Nascimento-->
+        <div class="form-group col-md-3">
+          <label for="inputDataNascimento">Data de Nascimento</label>
+          <mat-form-field>
+            <input matInput [matDatepicker]="picker" [(ngModel)]="pessoa.dataNascimento" name="dataNascimento" placeholder="Data de nascimento">
+            <mat-datepicker-toggle id="inputDataNascimento" matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <hr class="mb-4">
+
+        <!--Nome contato-->
+        <div class="form-group col-md-6">
+          <label for="inputNomeContato">Nome do Contato</label>
+          <input type="text" class="form-control" id="inputNomeContato" [(ngModel)]="contato.nome"
+            [ngModelOptions]="{standalone:true}" placeholder="Nome do contato" />
+        </div>
+        <!--Email do contato-->
+        <div class="form-group col-md-3">
+          <label for="inputEmail">Email</label>
+          <input type="text" [(ngModel)]="contato.email" [ngModelOptions]="{standalone:true}" class="form-control"
+            id="inputEmail" placeholder="Ex: email@email.com.br "/>
+        </div>
+        <!--Telefone do contato-->
+        <div class="form-group col-md-3">
+          <label for="inputTelefone">Telefone</label>
+          <input id="inputTelefone" [(ngModel)]="contato.telefone" [ngModelOptions]="{standalone:true}" type="text"
+            class="form-control" placeholder="99999999999" />
+        </div>
+      </div>
+      <div class="form-group col-md-6">
+        <div class="botoes">
+          <button (click)="adcionarContato()" type="button" class="btn btn-primary">Adicionar Contato</button>&nbsp;&nbsp;
+          <button (click)="cadastrarPessoa()" type="button" class="btn btn-success ">Salvar Pessoa</button>&nbsp;&nbsp;
+          <button (click)="cancelar()" type="button" class="btn btn-danger">Cancelar</button>
+
+        </div>
+      </div>
+
+      <table class="table table-striped ml-2">
+        <tr>
+          <td><b>Nome</b></td>
+          <td><b>Email</b></td>
+          <td><b>Telefone</b></td>
+          <td><b>Ações</b></td>
+        </tr>
+        <tr *ngFor="let dado of pessoa.contatos; let i = index">
+          <td>{{dado.nome}}</td>
+          <td>{{dado.email}}</td>
+          <td>{{dado.telefone}}</td>
+          <td>
+            <button mat-raised-button color="warn" (click)="editarPessoa(dado, i)">Editar</button>
+          </td>
+        </tr>
+      </table>
+
+    </form>
+
+  </div>
+  <p-toast [style]="{marginTop: '80px'}" [baseZIndex]="10000"></p-toast>
